@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1> {{ title }}</h1>
+<p>Тут можно попробовать найти Орка
+
+<form action="{% url "home" %}" method="GET">
+    <input type="text" name="q" />
+    <button type="submit">Поиск</button>
+</form>
+
+<br>
+<h2>Найденые Орки:</h2>
+<ul>
+{% for orc in orc_list %}
+    {{ orc.title.upper }} из деревни
+    {% for der in orc.der.all %}
+         {{ der.title.upper }}
+    {% endfor %}
+    <p> {{ orc.content | linebreaks }}  <hr>
+{% endfor %}
+</ul>
+
+<br>
+    <p class="add_button"><a href="/orki"> Посмотреть всех Орков </a></p>
+<br>
+    <p class="add_button"><a href="/add_ork"> Добавить Орков </a>
+         <class="add_button"><a href="/rem_ork"> Удалить Орков </a></p>
+{% endblock %}
